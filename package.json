@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/wello224/Backend-/issues"
   },
-  "homepage": "https://github.com/wello224/Backend-#readme"
+  "homepage": "https://github.com/wello224/Backend-#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
