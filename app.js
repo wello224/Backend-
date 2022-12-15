@@ -14,7 +14,7 @@ app.use(express.json({extended:false}));
 app.use('/api/users',require('./Routes/api/users'));
 app.use('/api/auth',require('./Routes/api/auth'));
 app.use('/api/profile',require('./Routes/api/profile'));
-app.use('/api/posts',require('./Routes/api/posts'));
+app.use('/api/car',require('./Routes/api/car'));
 
 app.listen(PORT,()=>{
 console.log(`app is working on port ${PORT}`)
