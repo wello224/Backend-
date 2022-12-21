@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const ProductController = require('../../middleware/carproducts')
+const ProductController = require('../../Controllers/carproducts')
 
 //Get a list of all products
 router.get('/', ProductController.getAllProducts);
