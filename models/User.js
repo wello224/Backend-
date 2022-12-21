@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
   },
   phone:{
-    type: Number,
+    type:String,
     length:11,
     required:true,
   },avatar: {
