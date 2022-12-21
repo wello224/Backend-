@@ -9,6 +9,8 @@ const CarSchema = new Schema(
     payPerDay: {type: Number, required: true},
     fuelType: {type: String, required: true},
     capacity: {type: Number, required: true},
+    stock: {type:Number,required: true,min: [1, 'Quantity can not be less then 1.'],
+    default: 1},
     bookedTimeSlots: [
         {
             from: {type: String, required: true},
