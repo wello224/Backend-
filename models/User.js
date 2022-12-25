@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const deepPopulate = require('mongoose-deep-populate')(mongoose);
+const findVisible = require('./findVisible');
 mongoose.set('strictQuery', false);
 const UserSchema = new mongoose.Schema({
   name: {
@@ -15,15 +17,32 @@ const UserSchema = new mongoose.Schema({
     required: true
   },
   Birthday: {
-    required:true,
+    required: true,
     type: String,
   },
-  phone:{
-    type:String,
-    length:11,
-    required:true,
-  },avatar: {
+  phone: {
+    type: String,
+    length: 11,
+    required: true,
+  },
+  avatar: {
     type: String
-  }
+  },
+  isVisible:
+    {
+        type: Boolean, default: true
+    }
 });
-module.exports= User =mongoose.model('user', UserSchema);
+
+const population =[]
+
+    UserSchema.pre('find', findVisible(population));
+    UserSchema.pre('findOne', findVisible(population));
+    UserSchema.pre('findOneAndUpdate', findVisible());
+    UserSchema.pre('count', findVisible());
+    UserSchema.pre('countDocuments', findVisible());
+
+    UserSchema.plugin(deepPopulate,{})
+
+ 
+module.exports = User = mongoose.model('User', UserSchema);
