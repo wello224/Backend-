@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const deepPopulate = require('mongoose-deep-populate');
+const deepPopulate = require('mongoose-deep-populate')(mongoose);
 const findVisible = require('./findVisible');
 const Schema = mongoose.Schema;
 
@@ -8,12 +8,12 @@ const CreditSchema = new Schema({
     user:
     {
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: "User"
     },
-
+ 
     CardHolderName:
     {
-        type: string
+        type: String
         , required: true,
         unique: true
     },
@@ -62,14 +62,11 @@ CreditSchema.pre('findOneAndUpdate', findVisible());
 CreditSchema.pre('count', findVisible());
 CreditSchema.pre('countDocuments', findVisible());
 
-CreditSchema.plugin(deepPopulate, {})
 
 
 
+CreditSchema.plugin(deepPopulate,{})
 
 
-
-
-
-
-module.exports = Credit = mongoose.model('Credit', CreditSchema);
+const Credit=mongoose.model('Credit',CreditSchema,'Credit');
+module.exports = Credit 
