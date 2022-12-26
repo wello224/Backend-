@@ -4,6 +4,35 @@ mongoose.set('strictQuery', true);
 const Product = require('../Models/Car');
 
 module.exports = {
+
+
+  get: async(req, res) =>{
+    try{
+        const {key , page , limit} = req.query
+        const skip = (page - 1) * limit
+        const search = key ? {
+            "$or": [
+                    {name: {$regex: key , $options: "$i"}},
+                    {model: {$regex: key , $options: "$i"}},
+                    
+            ]
+        } : {}
+        const cars = await Product.find(search).skip(skip).limit(limit)
+        res.status(200).json({cars})
+    }catch (err) {
+        res.status(500).json(err);
+    }
+},
+
+
+
+
+
+
+
+
+
+
   getAllProducts: async (req, res, next) => {
     try {
       const results = await Product.find({}, { __v: 0 });
