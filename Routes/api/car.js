@@ -3,6 +3,9 @@ const router = express.Router();
 
 const ProductController = require('../../Controllers/carproducts')
 
+
+router.get('/search/products',ProductController.get);
+
 //Get a list of all products
 router.get('/', ProductController.getAllProducts);
 
