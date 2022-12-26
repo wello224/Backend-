@@ -12,10 +12,7 @@ const config = require('config');
 //access public
 
 
-router.get('/',async function(req,res,next){
-  const user=await User.find()
-  res.send(user);
-});
+
 
 
 
