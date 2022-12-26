@@ -48,7 +48,7 @@ router.post(
             //check if user exists
             let user = await User.findOne({ email });
             if (user) {
-                return res.status(400).json({ errors: [{ msg: 'user already exists' }] });
+                return res.status(400).send('User is already')
             }
             //get users gravatar 
             const avatar = gravatar.url(email, {
@@ -92,6 +92,55 @@ router.post(
 
 
     }
+    router.get("/",
+    async (req, res, next) => {
+        try {
+            let allUsers = await User.find({}).select("-password");
+            return res.send(allUsers)
+        } catch (error) {
+            next(error);
+        }
+    });
+router.delete("/:id",
+ async (req, res, next) => {
+    const id = req.params.id;
+    try {
+      const result = await User.findByIdAndDelete(id);
+      if (!result) {
+        throw createError(404, 'user does not exist.');
+      }
+      res.send(result);
+    } catch (error) {
+      console.log(error.message);
+      if (error instanceof mongoose.CastError) {
+        next(createError(400, 'Invalid user id'));
+        return;
+      }
+      next(error);
+    }
+  });
+  router.patch("/:id",async (req, res, next) => {
+    try {
+      const id = req.params.id;
+      const updates = req.body;
+      const options = { new: true };
+
+      const result = await User.findByIdAndUpdate(id, updates, options);
+      if (!result) {
+        throw createError(404, 'User does not exist');
+      }
+      res.send(result);
+    } catch (error) {
+      console.log(error.message);
+      if (error instanceof mongoose.CastError) {
+        return next(createError(400, 'Invalid User Id'));
+      }
+
+      next(error);
+    }
+  },
+
+  )
 );
 
 module.exports = router;
