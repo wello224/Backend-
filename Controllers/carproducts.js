@@ -5,7 +5,7 @@ const Product = require('../Models/Car');
 
 module.exports = {
 
-
+  
   get: async(req, res) =>{
     try{
         const {key , page , limit} = req.query
@@ -23,14 +23,6 @@ module.exports = {
         res.status(500).json(err);
     }
 },
-
-
-
-
-
-
-
-
 
 
   getAllProducts: async (req, res, next) => {
