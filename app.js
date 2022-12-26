@@ -15,6 +15,7 @@ app.use('/api/users',require('./Routes/api/users'));
 app.use('/api/auth',require('./Routes/api/auth'));
 app.use('/api/profile',require('./Routes/api/profile'));
 app.use('/api/car',require('./Routes/api/car'));
+app.use('/api/credit',require('./Routes/api/credit'));
 
 app.listen(PORT,()=>{
 console.log(`app is working on port ${PORT}`)
