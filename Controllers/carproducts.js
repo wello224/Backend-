@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
-const Product = require('../Models/Car');
+const Product = require('../models/Car');
 
 module.exports = {
 

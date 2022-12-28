@@ -31,7 +31,9 @@ const UserSchema = new mongoose.Schema({
   isVisible:
     {
         type: Boolean, default: true
-    }
+    },
+      isAdmin:
+      {type:Number}
 });
 
 const population =[]
