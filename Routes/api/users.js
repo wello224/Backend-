@@ -11,7 +11,33 @@ const config = require('config');
 //desc Register user 
 //access public
 
+//get all users
 
+// router.get('/',async function(req,res,next){
+//   const user=await User.find()
+//   res.send(user);
+// });
+
+//get user by id 
+
+router.get('/', async function(req, res, next) {
+    const {id} =req.body ;
+    try {
+      const gcar = await User.findById(id);
+      // const product = await Product.findOne({ _id: id });
+      if (!gcar) {
+        throw createError(404, 'Product does not exist.');
+      }
+      res.send(gcar);
+    } catch (error) {
+      console.log(error.message);
+      if (error instanceof mongoose.CastError) {
+        next(createError(400, 'Invalid Product id'));
+        return;
+      }
+      next(error);
+    }
+  }),
 
 
 
@@ -83,7 +109,7 @@ router.post(
 
         } catch (error) {
             console.error(err.message)
-            res.status(500).send('server eroor')
+            res.status(500).send(' error')
         }
 
 
@@ -92,6 +118,3 @@ router.post(
 );
 
 module.exports = router;
-
-
-
