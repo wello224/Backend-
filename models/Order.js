@@ -39,11 +39,6 @@ const OrderSchema = new Schema(
       update_time: { type: String },
       email_address: { type: String },
     },
-    shippingPrice: {
-      type: Number,
-      require: true,
-      default: 0.0,
-    },
     totalPrice: {
       type: Number,
       require: true,
@@ -53,9 +48,6 @@ const OrderSchema = new Schema(
       type: Boolean,
       require: true,
       default: false,
-    },
-    paidAt: {
-      type: Date,
     },
     idDelivered: {
       type: Boolean,
