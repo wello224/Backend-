@@ -2,6 +2,7 @@ const createError = require('http-errors');
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 const Product = require('../Models/Car');
+const cloudinary = require('../utils/cloudinary');
 
 module.exports = {
 
@@ -43,7 +44,14 @@ module.exports = {
   },
 
   createNewProduct: async (req, res, next) => {
+    const{name,model, image, payPerDay,fuelType,capacity,stock} =req.body;
+
     try {
+      const conc = await cloudinary.uploader.upload(image,{
+        folder: "products",
+        // width: 300,
+        // crop: "scale" 
+      })
       const product = new Product(req.body);
       const result = await product.save();
       res.send(result);
