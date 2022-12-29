@@ -1,11 +1,12 @@
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
-const Product = require('../models/Car');
+const Product = require('../Models/Car');
 
 module.exports = {
 
-  
+//search function by name and model
+
   get: async(req, res) =>{
     try{
         const {key , page , limit} = req.query
@@ -23,6 +24,11 @@ module.exports = {
         res.status(500).json(err);
     }
 },
+
+
+
+
+
 
 
   getAllProducts: async (req, res, next) => {
@@ -131,22 +137,48 @@ module.exports = {
     }
   },
 
-  deleteAProduct: async (req, res, next) => {
-    const id = req.params.id;
+  // deleteAProduct: async (req, res, next) => {
+  //   const id = req.params.id;
+  //   try {
+  //     const result = await Product.findByIdAndDelete(id);
+  //     // console.log(result);
+  //     if (!result) {
+  //       throw createError(404, 'Product does not exist.');
+  //     }
+  //     res.send(result);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //     if (error instanceof mongoose.CastError) {
+  //       next(createError(400, 'Invalid Product id'));
+  //       return;
+  //     }
+  //     next(error);
+  //   }
+  // },
+
+
+// update delete method to remove product using findVisible function
+
+  deleteAProduct: async (req, res, next)=>{
+    const {id}=req.body
     try {
-      const result = await Product.findByIdAndDelete(id);
-      // console.log(result);
-      if (!result) {
-        throw createError(404, 'Product does not exist.');
+    const newProduct=await Product.findByIdAndUpdate(id,
+        {
+            isVisible:false,
+        },{new:true})
+        if (!newProduct) {
+          throw createError(404, 'Product does not exist.');
+        }
+        res.send(newProduct );
       }
-      res.send(result);
-    } catch (error) {
-      console.log(error.message);
-      if (error instanceof mongoose.CastError) {
-        next(createError(400, 'Invalid Product id'));
-        return;
-      }
-      next(error);
-    }
-  }
+      catch (error) {
+             console.log(error.message);
+             if (error instanceof mongoose.CastError) {
+              next(createError(400, 'Invalid Product id'));
+              return;
+            }
+            next(error);
+          }
+}
+
 };
