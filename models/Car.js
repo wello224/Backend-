@@ -5,7 +5,17 @@ const CarSchema = new Schema(
   {
     name: {type: String, required: true},
     model: {type: String, required: true},
-    image: {type: String, required: true},
+    image: 
+    {    public_id:{
+        type: String,
+        required: true
+    },
+        url:{
+            type: String,
+            required: true
+        }
+        
+        },
     payPerDay: {type: Number, required: true},
     fuelType: {type: String, required: true},
     capacity: {type: Number, required: true},
